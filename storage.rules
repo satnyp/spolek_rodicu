@@ -2,13 +2,42 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     function signedIn() { return request.auth != null; }
-    function emailLower() { return lower(request.auth.token.email); }
-    function isSatny() { return emailLower() == 'satny@gvid.cz'; }
+    function email() { return request.auth.token.email; }
+
+    // "satny@gvid.cz je vždy admin"
+    function isSatny() { return signedIn() && email() == 'satny@gvid.cz'; }
+
+    // načti allowlist dokument podle emailu
+    function allowDoc() {
+      return firestore.get(/databases/(default)/documents/allowlist/$(email()));
+    }
+
+    function isActive() {
+      return isSatny() || (signedIn() && allowDoc().data.active == true);
+    }
+
+    function role() {
+      return isSatny() ? 'admin' : allowDoc().data.role;
+    }
+
+    function canUpload() {
+      // viewer = read-only
+      return role() in ['requester', 'accountant', 'admin'];
+    }
+
+    function canDelete() {
+      return role() in ['accountant', 'admin'];
+    }
 
     match /attachments/{requestId}/{fileName} {
-      allow read: if signedIn();
-      allow write: if signedIn() && (isSatny() || request.auth.token.role != 'viewer');
-      allow delete: if signedIn() && (isSatny() || request.auth.token.role in ['accountant', 'admin']);
+      allow read: if isActive();
+      allow write: if isActive() && canUpload();
+      allow delete: if isActive() && canDelete();
+    }
+
+    // default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
     }
   }
 }
