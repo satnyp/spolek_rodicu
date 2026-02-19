@@ -2,11 +2,24 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
-    function emailLower() { return lower(request.auth.token.email); }
-    function isSatny() { return emailLower() == 'satny@gvid.cz'; }
-    function allowDoc() { return get(/databases/$(database)/documents/allowlist/$(emailLower())); }
-    function isAllowlistedActive() { return isSatny() || (allowDoc().data.active == true); }
-    function role() { return isSatny() ? 'admin' : allowDoc().data.role; }
+    function email() { return request.auth.token.email; }
+
+    // satny@gvid.cz je vždy admin
+    function isSatny() { return signedIn() && email() == 'satny@gvid.cz'; }
+
+    // allowlist dokument je uložen pod ID = email
+    function allowDoc() {
+      return get(/databases/$(database)/documents/allowlist/$(email()));
+    }
+
+    function isAllowlistedActive() {
+      return isSatny() || (signedIn() && allowDoc().data.active == true);
+    }
+
+    function role() {
+      return isSatny() ? 'admin' : allowDoc().data.role;
+    }
+
     function canWrite() { return role() in ['accountant', 'admin']; }
 
     match /allowlist/{id} {
@@ -16,7 +29,8 @@ service cloud.firestore {
 
     match /queueRequests/{id} {
       allow read: if signedIn() && isAllowlistedActive();
-      allow create: if signedIn() && isAllowlistedActive() && role() in ['requester', 'accountant', 'admin'];
+      allow create: if signedIn() && isAllowlistedActive()
+        && role() in ['requester', 'accountant', 'admin'];
       allow update, delete: if signedIn() && canWrite();
     }
 
