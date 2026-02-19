@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+functions/.env
+functions/node_modules/
+functions/lib/
+*.tsbuildinfo
+.DS_Store

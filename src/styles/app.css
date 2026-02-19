@@ -1,0 +1,10 @@
+:root { font-family: Inter, system-ui, Arial, sans-serif; }
+body { margin: 0; }
+.layout { display: grid; grid-template-columns: 260px 1fr 360px; min-height: 100vh; }
+aside, section { border-right: 1px solid #e5e5e5; padding: 12px; }
+main { padding: 12px; }
+button { margin: 2px; }
+article { border: 1px solid #ddd; border-radius: 8px; padding: 8px; margin-bottom: 8px; }
+article.active { outline: 2px solid #7ba7ff; }
+.center { display: grid; place-items: center; min-height: 100vh; gap: 8px; }
+.selected { font-weight: bold; }

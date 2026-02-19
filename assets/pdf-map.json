@@ -1,0 +1,40 @@
+{
+  "source": "assets/Zadost_fillable_final_toggles_masks.pdf",
+  "generatedAt": "2026-02-19T17:29:11.032Z",
+  "mode": "acroform",
+  "fields": [
+    {
+      "name": "nadpis_1_1",
+      "type": "PDFTextField"
+    },
+    {
+      "name": "nadpis_1_2",
+      "type": "PDFTextField"
+    },
+    {
+      "name": "nadpis_1_3",
+      "type": "PDFTextField"
+    },
+    {
+      "name": "nadpis_1_4",
+      "type": "PDFTextField"
+    },
+    {
+      "name": "sr_ano_toggle",
+      "type": "PDFCheckBox"
+    },
+    {
+      "name": "sr_ne_toggle",
+      "type": "PDFCheckBox"
+    },
+    {
+      "name": "preplatek_toggle",
+      "type": "PDFCheckBox"
+    },
+    {
+      "name": "nedoplatek_toggle",
+      "type": "PDFCheckBox"
+    }
+  ],
+  "coordinatesFallback": []
+}
