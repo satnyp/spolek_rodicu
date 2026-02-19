@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function emailLower() { return lower(request.auth.token.email); }
+    function isSatny() { return emailLower() == 'satny@gvid.cz'; }
+
+    match /attachments/{requestId}/{fileName} {
+      allow read: if signedIn();
+      allow write: if signedIn() && (isSatny() || request.auth.token.role != 'viewer');
+      allow delete: if signedIn() && (isSatny() || request.auth.token.role in ['accountant', 'admin']);
+    }
+  }
+}
