@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "vs": "vs",
+    "description": "description",
+    "amount": "amount"
+  },
+  "fallbackCoordinates": []
+}

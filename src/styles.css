@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; margin: 0; }
+header { display:flex; justify-content:space-between; padding:12px; background:#f5f5f5; }
+.layout { display:grid; grid-template-columns: 220px 1fr 360px; gap:12px; padding:12px; }
+aside, main, section { border:1px solid #ddd; border-radius:8px; padding:12px; min-height:80vh; overflow:auto; }
+.card { margin:8px 0; padding:8px; border-radius:8px; border:1px solid #ddd; }
+.card.NEW { background:#fff; }
+.card.PAID { background:#eaf3ff; }
+.card.HAS_INVOICES { background:#f4ecff; }
+.card.HANDED_TO_ACCOUNTANT { background:#ebf8eb; }
+button.active { font-weight:bold; }
+.auth-buttons { display:flex; gap:8px; }

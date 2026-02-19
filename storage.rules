@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function emailLower() { return lower(request.auth.token.email); }
+    function isHardAdmin() { return emailLower() == 'satny@gvid.cz'; }
+    function allowDoc() { return firestore.get(/databases/(default)/documents/allowlist/$(emailLower())); }
+    function activeAllowlisted() { return signedIn() && (isHardAdmin() || allowDoc().data.active == true); }
+    function role() { return isHardAdmin() ? 'admin' : allowDoc().data.role; }
+
+    match /attachments/{requestId}/{fileName} {
+      allow read: if activeAllowlisted();
+      allow write: if activeAllowlisted() && role() in ['requester', 'accountant', 'admin'];
+      allow delete: if activeAllowlisted() && role() in ['accountant', 'admin'];
+    }
+  }
+}
