@@ -179,3 +179,8 @@ Nic z toho nesmí být v `src/` jako plaintext.
 - Komprese obrázků před uploadem.
 - PDF generovat z šablony v `assets/` a stahovat nový soubor, šablonu neměnit.
 - satny@gvid.cz je vždy admin.
+
+
+## UI baseline
+UI nesmí být “holé”. Vzhled a UX musí odpovídat /docs/DESIGN_BASELINE.md.
+Agent musí ověřit výsledek proti designům (screenshoty do PR).
