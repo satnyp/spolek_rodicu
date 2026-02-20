@@ -22,7 +22,7 @@ Cíl: MVP webové aplikace hostované na Firebase (Hosting + Firestore + Auth + 
 - Minimalizovat Firestore reads (sidebar nesmí číst tisíce requests).
 
 ### Projektové jméno
-- Firebase project id zkusit `sr` (pokud obsazeno, zvolit variantu `sr-gvid` / `sr-spolek` apod.). V kódu používat jen `firebaseConfig` dle vytvořeného projektu.
+- Firebase project id zkusit `prispevekrodicu` (pokud obsazeno, zvolit variantu `sr-gvid` / `sr-spolek` apod.). V kódu používat jen `firebaseConfig` dle vytvořeného projektu.
 
 ---
 
@@ -182,7 +182,7 @@ Aby sidebar byl rychlý:
   - tlačítka změny state (jen role != viewer a jen pokud unlocked)
 
 3) Pravý panel (editor)
-- Zobrazí se po kliknutí Edit
+- Zobrazí se po kliknutí Edit/na obrázek Pdf
 - Uvede, který request je aktivní (zvýraznění v seznamu)
 - Panel má:
   - PDF náhled šablony (template)
@@ -191,13 +191,6 @@ Aby sidebar byl rychlý:
   - tlačítko Stáhnout PDF (vyplní šablonu a stáhne)
   - upload příloh (invoice JPG/PDF)
   - seznam příloh s možností stáhnout / smazat (dle role)
-
-### Lock/unlock
-- default locked
-- klik na zámek: unlock na 10 minut (lokální timer)
-- po 10 min auto-lock
-- viewer nemůže unlocknout
-- změny state a editace pouze pokud unlocked
 
 ### Bulk akce: Poslat informační mail
 - pokud je vybrán aspoň 1 checkbox:
@@ -222,6 +215,10 @@ Aby sidebar byl rychlý:
   - vytvořit `assets/pdf-map.json`:
     - buď mapování form field names -> editorData keys
     - nebo mapování souřadnic (fallback), pokud pole nejsou ve formu dostupná
+   
+## Design baseline (závazné)
+Vzhled UI/UX musí odpovídat /docs/DESIGN_BASELINE.md a referenčním HTML v /docs/design.
+Pokud SPEC neřeší vizuální detail, rozhoduje DESIGN_BASELINE.
 
 ---
 
@@ -397,5 +394,7 @@ Acceptance:
 - `assets/pdf-map.json` + dev nástroj pro výpis PDF field names
 - `apps-script/` s Code.gs + instrukce deploy Web App
 - základní seed script / instrukce: jak přidat satny@gvid.cz do allowlistu, pokud není automaticky
+
+
 
 Konec SPEC.md
