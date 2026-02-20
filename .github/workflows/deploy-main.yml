@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      # Vite / Firebase web config (repo variables)
       VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
       VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
       VITE_FIREBASE_PROJECT_ID: ${{ vars.VITE_FIREBASE_PROJECT_ID }}
@@ -18,6 +19,7 @@ jobs:
       VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
       VITE_FIREBASE_MEASUREMENT_ID: ${{ vars.VITE_FIREBASE_MEASUREMENT_ID }}
 
+      # Seznam OAuth (repo variables – veřejné části)
       VITE_SEZNAM_CLIENT_ID: ${{ vars.VITE_SEZNAM_CLIENT_ID }}
       VITE_SEZNAM_REDIRECT_URI: ${{ vars.VITE_SEZNAM_REDIRECT_URI }}
       VITE_SEZNAM_START_URL: ${{ vars.VITE_SEZNAM_START_URL }}
@@ -29,13 +31,25 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            functions/package-lock.json
 
+      # Frontend / root checks
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
 
+      # Build Cloud Functions (MUSÍ vzniknout functions/lib/index.js)
+      - name: Install + build Functions
+        working-directory: functions
+        run: |
+          npm ci
+          npm run build
+
+      # Deploy Hosting (live) via official action (uses service account JSON)
       - name: Deploy Hosting (live)
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -43,11 +57,18 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRISPEVKYRODICU }}
           projectId: prispevkyrodicu
           channelId: live
+          # force: true  # nepoužívej, pokud nemusíš
+        # docs: action-hosting-deploy expects a SA JSON in secrets
+        # https://github.com/FirebaseExtended/action-hosting-deploy
+        # (referenced for correctness) :contentReference[oaicite:0]{index=0}
 
+      # Deploy Functions + Rules + Indexes + Storage using the same SA JSON
       - name: Write Firebase service account key
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRISPEVKYRODICU }}' > /tmp/firebase-sa.json
+        run: |
+          printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRISPEVKYRODICU }}' > /tmp/firebase-sa.json
 
       - name: Deploy Functions + Rules + Indexes + Storage
-        run: npx firebase-tools deploy --project prispevkyrodicu --only functions,firestore:rules,firestore:indexes,storage
+        run: npx firebase-tools@latest deploy --project prispevkyrodicu --only functions,firestore:rules,firestore:indexes,storage
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/firebase-sa.json
+        # firebase-tools supports SA auth via GOOGLE_APPLICATION_CREDENTIALS in CI :contentReference[oaicite:1]{index=1}
