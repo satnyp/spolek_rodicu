@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="light" lang="cs"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spolek rodičů - Správa záznamů</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1978e5",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111821"
+                    },
+                    fontFamily: {
+                        display: "Inter"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-72 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-[#14266a] flex items-center justify-center overflow-hidden">
+<img alt="GVID logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLHvZq9YMl4HcG09YQw902yUVNdTsSDcS_uu3baOQa03dhjuhhfSe_etLVGfmgaOSxDWhmccx-gUfaT89-NWeG-i2phkdAUsJwxB0YpTlbDSKlAtkK3ObLu9uGtyiq5aVEYnnYQqENqA2i38EavSeZNssXOjEzFfmrLk5rmyEDCgKoPuldSNpmQ3ZmKDj93PRa_S-wqtV418cyhRUNQRVbzz5wSTIuBMee5LBIbStEzpd-X0aBr-z6-G7y1xy99LYy0Qmk6JRrSc0C"/>
+</div>
+<div>
+<h1 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">Spolek rodičů</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Správa záznamů</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto p-4 space-y-6">
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Nástěnka</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+<span class="text-sm font-bold">Historie požadavků</span>
+</a>
+</div>
+<div>
+<h3 class="px-3 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Školní roky</h3>
+<div class="space-y-1">
+<div class="group">
+<button class="w-full flex items-center justify-between px-3 py-2 text-slate-900 dark:text-slate-200 rounded-lg bg-slate-100/50 dark:bg-slate-800/50">
+<span class="text-xs font-bold uppercase tracking-tight">Školní rok 2023/24</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<div class="mt-1 space-y-1 pl-4 border-l border-slate-200 dark:border-slate-800 ml-4">
+<a class="flex items-center justify-between px-3 py-1.5 text-slate-600 dark:text-slate-400 text-sm hover:text-primary transition-colors" href="#">
+<span>Říjen 2023</span>
+<span class="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[10px] font-bold">24</span>
+</a>
+<div class="flex flex-col">
+<a class="flex items-center justify-between px-3 py-1.5 text-primary text-sm font-semibold bg-primary/5 rounded-r-lg" href="#">
+<span>Září 2023</span>
+<span class="bg-primary/20 px-1.5 py-0.5 rounded text-[10px] font-bold">3</span>
+</a>
+<div class="pl-3 py-1 space-y-1 opacity-70">
+<div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">Výtvarné potřeby - 4500 Kč</div>
+<div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">Sportovní vybavení - 12800 Kč</div>
+<div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">Materiál na pokusy - 2150 Kč</div>
+</div>
+</div>
+<a class="flex items-center justify-between px-3 py-1.5 text-slate-600 dark:text-slate-400 text-sm hover:text-primary transition-colors" href="#">
+<span>Srpen 2023</span>
+<span class="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-[10px] font-bold">5</span>
+</a>
+</div>
+</div>
+<div class="mt-2">
+<button class="w-full flex items-center justify-between px-3 py-2 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="text-xs font-bold uppercase tracking-tight">Školní rok 2022/23</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<div class="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCS35k34FGULAqGUdxYyuzY7Kz9rlhbugRH5mK4OveCL0_wagPG-Vu8jr9iGkn84eRn7k7kFqVISZYnpEDgZfqBwSVAqUgPZciGQBdNbgMEwCtVjg0eyHtmiQQvchhTixeoZ82SCRwhTABOkqAZ5PS82rUxGW1iahShM1DM9yqk2Ke-Ge26t0bv1niozSb840JlLWymoViQjFwvVaYfH-24yZt7ByvSFueTY4dBwgXh2DoV4ozsoc_mUzrdeyYqXmIhJkw77zJVPiaz')"></div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold text-slate-900 dark:text-white truncate">Administrátor</p>
+<p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">admin@srps-skola.cz</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary transition-colors">dark_mode</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-hidden">
+<header class="h-16 bg-white dark:bg-background-dark border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 z-10 shrink-0">
+<div class="flex items-center gap-6 flex-1">
+<div class="max-w-md w-full relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Hledat učitele nebo položku..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtry
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Exportovat CSV
+                    </button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-8">
+<div class="max-w-4xl mx-auto space-y-10 pb-20">
+<section>
+<div class="flex items-center gap-4 mb-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Pravidelné požadavky</h3>
+<div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden relative group">
+<div class="divide-y divide-slate-50 dark:divide-slate-800">
+<div class="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">SJ</div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Výtvarné potřeby</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Mgr. Jana Svobodová • 12. 9. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<div class="flex flex-col items-end gap-1">
+<span class="text-sm font-black text-slate-900 dark:text-white">4 500 Kč</span>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">ZÁŘÍ</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Schváleno</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-sm">PN</div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Sportovní vybavení pro tělocvičnu</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Bc. Petr Novák • 10. 9. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<div class="flex flex-col items-end gap-1">
+<span class="text-sm font-black text-slate-900 dark:text-white">12 800 Kč</span>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">ZÁŘÍ</span>
+</div>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Schváleno</span>
+</div>
+</div>
+<button class="w-full p-4 flex items-center justify-center gap-2 text-primary hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-sm font-bold">+ Přidat pravidelný požadavek</span>
+</button>
+</div>
+<div class="absolute bottom-2 right-2 text-slate-300 dark:text-slate-600 group-hover:text-slate-400 transition-colors pointer-events-none">
+<span class="material-symbols-outlined text-[18px]">keyboard_double_arrow_up</span>
+</div>
+</div>
+</section>
+<div class="pt-2 border-t border-slate-200 dark:border-slate-800">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-8">Školní rok 2023/24</h2>
+<section class="space-y-10">
+<section>
+<div class="flex items-center gap-4 mb-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Září 2023</h3>
+<div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="divide-y divide-slate-50 dark:divide-slate-800">
+<div class="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">SJ</div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Výtvarné potřeby</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Mgr. Jana Svobodová • 12. 9. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<span class="text-sm font-black text-slate-900 dark:text-white">4 500 Kč</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Schváleno</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold">PN</div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Sportovní vybavení pro tělocvičnu</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Bc. Petr Novák • 10. 9. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<span class="text-sm font-black text-slate-900 dark:text-white">12 800 Kč</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Schváleno</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBC7Ibi7LhHrwjQ6r6x3MViGGnyMTPx5Ux3MI-KnIBvxbV4RFO__TMzVvbZp3_WMu05vnlc6sQAt7nPfr009_ENvR1ysuk05UydfVXxlxKm6zpsZ4VC_UKLnWIVpR_QmqXLBb_u4XEMqr5PkKj2kYSydsY7qgOSxG6zXKgMs4dqOK2Y-3fEfS4AtOJppGCahtisUz2u3c8V1LRd3jbvExOkO0np7WhwrMYyDR45lGNQwUnCjPLhp0n96lCg93hqGRKSuqVsLcffq0DG')"></div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Materiál pro fyzikální pokusy</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Ing. Robert Černý • 5. 9. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<span class="text-sm font-black text-slate-900 dark:text-white">2 150 Kč</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">Vyřízeno</span>
+</div>
+</div>
+<button class="w-full p-4 flex items-center justify-center gap-2 text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all border-t border-dashed border-slate-100 dark:border-slate-800">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm font-medium">Přidat nový požadavek...</span>
+</button>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-4 mb-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white opacity-70">Srpen 2023</h3>
+<div class="h-px flex-1 bg-slate-200 dark:bg-slate-800 opacity-50"></div>
+</div>
+<div class="bg-white/80 dark:bg-slate-900/80 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="divide-y divide-slate-50 dark:divide-slate-800">
+<div class="p-5 flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">LM</div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Oprava hudebních nástrojů</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Mgr. Lenka Malá • 28. 8. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<span class="text-sm font-black text-slate-900 dark:text-white">3 200 Kč</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Schváleno</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAv6Z1ibsJ61v4ywqSSactwIoYnNQKZeVUNDK07L19EudqyI86GWICGF2aGUNBZU8k1IUpfXtALu0A_l7B-zfYCbQD2q3aNu3bWCMhbatU0J4dm7DpNZhq1oSct3INUWje2McnFNm8_fNz8JbXERuxVtbWHUlp2R4zcoZ2nV6RzpfFq7SnxNTVuKQdlIuPrLzYgAcE7TY_QvW9E0c6tqmy-TcTVzXVllycluyM2U5nT3vmShCjVaRRFapSKI7NtFa8MJolmHMZmGrLl')"></div>
+<div>
+<div class="flex items-center gap-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Dekorace do tříd</p>
+<span class="material-symbols-outlined text-slate-400 text-[18px] cursor-pointer hover:text-primary">picture_as_pdf</span>
+</div>
+<p class="text-xs text-slate-500">Bc. Anna Gomešová • 24. 8. 2023</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-6">
+<span class="text-sm font-black text-slate-900 dark:text-white">1 500 Kč</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800">Zamítnuto</span>
+</div>
+</div>
+<button class="w-full p-4 flex items-center justify-center gap-2 text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all border-t border-dashed border-slate-100 dark:border-slate-800">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm font-medium">Přidat nový požadavek...</span>
+</button>
+</div>
+</div>
+</section>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
