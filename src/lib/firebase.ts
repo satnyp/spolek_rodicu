@@ -4,13 +4,24 @@ import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 import { getStorage } from 'firebase/storage';
 
+const fallback = {
+  apiKey: 'AIzaSyDddZrdWTcM1qeiXDsAI6LkLbyaL1v-dw0',
+  authDomain: 'prispevkyrodicu.firebaseapp.com',
+  projectId: 'prispevkyrodicu',
+  storageBucket: 'prispevkyrodicu.firebasestorage.app',
+  messagingSenderId: '609240256764',
+  appId: '1:609240256764:web:1639029e9e419a411b0779',
+};
+
+const env = import.meta.env;
+
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: env.VITE_FIREBASE_API_KEY || fallback.apiKey,
+  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || fallback.authDomain,
+  projectId: env.VITE_FIREBASE_PROJECT_ID || fallback.projectId,
+  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || fallback.storageBucket,
+  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || fallback.messagingSenderId,
+  appId: env.VITE_FIREBASE_APP_ID || fallback.appId,
 };
 
 const app = initializeApp(firebaseConfig);
