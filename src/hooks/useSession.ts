@@ -29,7 +29,6 @@ export function useSession(): SessionState & {
   useEffect(() => {
     return onAuthStateChanged(auth, async (nextUser) => {
       setUser(nextUser);
-      setAccessDenied(false);
       if (!nextUser?.email) {
         setAllowlistEntry(null);
         setLoading(false);
@@ -38,17 +37,25 @@ export function useSession(): SessionState & {
       const emailLower = nextUser.email.toLowerCase();
       if (emailLower === ADMIN_EMAIL) {
         setAllowlistEntry({ emailLower, role: 'admin', active: true });
+        setAccessDenied(false);
         setLoading(false);
         return;
       }
-      const snap = await getDoc(doc(db, 'allowlist', emailLower));
-      const data = (snap.data() as AllowlistEntry | undefined) ?? null;
-      if (!snap.exists() || !data?.active) {
+      try {
+        const snap = await getDoc(doc(db, 'allowlist', emailLower));
+        const data = (snap.data() as AllowlistEntry | undefined) ?? null;
+        if (!snap.exists() || !data?.active) {
+          setAccessDenied(true);
+          setAllowlistEntry(null);
+          await signOut(auth);
+        } else {
+          setAllowlistEntry(data);
+          setAccessDenied(false);
+        }
+      } catch {
         setAccessDenied(true);
         setAllowlistEntry(null);
         await signOut(auth);
-      } else {
-        setAllowlistEntry(data);
       }
       setLoading(false);
     });

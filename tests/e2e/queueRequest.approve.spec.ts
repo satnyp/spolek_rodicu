@@ -4,7 +4,8 @@ import { connectAuthEmulator, getAuth, signInWithCustomToken } from 'firebase/au
 import { addDoc, collection, connectFirestoreEmulator, getDoc, getFirestore, serverTimestamp, doc } from 'firebase/firestore';
 import { connectFunctionsEmulator, getFunctions, httpsCallable } from 'firebase/functions';
 
-const app = initializeApp({ apiKey: 'demo', authDomain: 'demo', projectId: 'prispevkyrodicu', appId: 'demo' }, 'e2e-approve');
+const projectId = process.env.E2E_FIREBASE_PROJECT_ID ?? 'demo-prispevkyrodicu';
+const app = initializeApp({ apiKey: 'demo', authDomain: 'demo', projectId, appId: 'demo' }, 'e2e-approve');
 const auth = getAuth(app);
 const db = getFirestore(app);
 const functions = getFunctions(app);

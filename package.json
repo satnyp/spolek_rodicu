@@ -15,7 +15,7 @@
     "pdf:fields": "node scripts/list-pdf-fields.mjs",
     "prepare": "husky || true",
     "test:e2e": "playwright test",
-    "test:e2e:ci": "firebase emulators:exec --project prispevkyrodicu \"node scripts/seedEmulator.mjs && VITE_E2E=true VITE_USE_EMULATORS=true npm run build && VITE_E2E=true VITE_USE_EMULATORS=true npm run preview -- --host 127.0.0.1 --port 4173 --strictPort & PREVIEW_PID=$! && sleep 3 && npm run test:e2e; STATUS=$?; kill $PREVIEW_PID; exit $STATUS\""
+    "test:e2e:ci": "npm --prefix functions run build && VITE_E2E=true VITE_USE_EMULATORS=true VITE_FIREBASE_PROJECT_ID=demo-prispevkyrodicu npm run build && npx playwright install --with-deps chromium && npx firebase-tools emulators:exec --project demo-prispevkyrodicu \"node scripts/seedEmulator.mjs && PLAYWRIGHT_BASE_URL=http://127.0.0.1:5000 npm run test:e2e\""
   },
   "dependencies": {
     "firebase": "^11.1.0",
