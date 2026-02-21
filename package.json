@@ -13,7 +13,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "pdf:fields": "node scripts/list-pdf-fields.mjs",
-    "prepare": "husky || true"
+    "prepare": "husky || true",
+    "test:e2e": "playwright test",
+    "test:e2e:ci": "firebase emulators:exec --project prispevkyrodicu \"node scripts/seedEmulator.mjs && VITE_E2E=true VITE_USE_EMULATORS=true npm run build && VITE_E2E=true VITE_USE_EMULATORS=true npm run preview -- --host 127.0.0.1 --port 4173 --strictPort & PREVIEW_PID=$! && sleep 3 && npm run test:e2e; STATUS=$?; kill $PREVIEW_PID; exit $STATUS\""
   },
   "dependencies": {
     "firebase": "^11.1.0",
@@ -29,7 +31,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.2",
-    "@types/pngjs": "^6.0.5",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
@@ -39,14 +40,13 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "jsdom": "^25.0.1",
-    "pixelmatch": "^7.1.0",
     "playwright": "^1.58.2",
-    "pngjs": "^7.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1",
     "vite": "^6.0.5",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "@playwright/test": "^1.58.2"
   }
 }

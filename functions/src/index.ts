@@ -14,6 +14,55 @@ const APPS_SCRIPT_SECRET = defineSecret('APPS_SCRIPT_SECRET');
 
 const ADMIN_EMAIL = 'satny@gvid.cz';
 
+function assertEmulatorOnly() {
+  const emulator = process.env.FUNCTIONS_EMULATOR === 'true';
+  if (!emulator) {
+    throw new HttpsError('failed-precondition', 'This endpoint is available only in Firebase Emulator.');
+  }
+}
+
+export const mintTestToken = onCall(async (request) => {
+  assertEmulatorOnly();
+  const email = String(request.data?.email ?? '').toLowerCase().trim();
+  if (!email) {
+    throw new HttpsError('invalid-argument', 'email is required');
+  }
+
+  const uid = `test:${email}`;
+  const allow = await db.doc(`allowlist/${email}`).get();
+  const allowData = allow.data() as { role?: string } | undefined;
+  const role = email === ADMIN_EMAIL ? 'admin' : allowData?.role ?? 'viewer';
+
+  await admin.auth().createUser({ uid, email }).catch(() => undefined);
+  await admin.auth().setCustomUserClaims(uid, { role, email });
+  const token = await admin.auth().createCustomToken(uid, { email, role, provider: 'test' });
+  return { token };
+});
+
+export const seedEmulatorData = onRequest(async (_req, res) => {
+  try {
+    assertEmulatorOnly();
+  } catch (error) {
+    res.status(400).json({ ok: false, error: String(error) });
+    return;
+  }
+
+  const seed = [
+    { emailLower: ADMIN_EMAIL, role: 'admin' },
+    { emailLower: 'test@gvid.cz', role: 'admin' },
+    { emailLower: 'accountant@gvid.cz', role: 'accountant' },
+    { emailLower: 'requester@gvid.cz', role: 'requester' }
+  ];
+
+  for (const user of seed) {
+    await db.doc(`allowlist/${user.emailLower}`).set({ ...user, active: true, createdAt: admin.firestore.FieldValue.serverTimestamp(), updatedAt: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  }
+
+  await db.doc('months/2026-01').set({ monthKey: '2026-01', label: 'leden 2026', counts: { total: 0 }, updatedAt: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+
+  res.json({ ok: true, seeded: seed.map((s) => s.emailLower) });
+});
+
 function sha256(input: string): string {
   return crypto.createHash('sha256').update(input).digest('base64url');
 }

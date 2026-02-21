@@ -30,6 +30,33 @@ UI design je řízen souborem DESIGN.md a šablonami v docs/design/. UI se má p
 
 ## 1) Role, přístup, allowlist
 
+
+## Auth & Testing Contract (DEV/CI) — povinné
+
+### PROD
+- Autentizace zůstává: Google + Seznam + allowlist.
+- Google login: pouze `@gvid.cz` + allowlist.
+- Seznam login: OAuth přes Cloud Functions + allowlist.
+- `satny@gvid.cz` je vždy admin.
+
+### DEV/CI
+- Povinné je spouštění přes Firebase Emulators: Auth, Firestore, Storage, Functions.
+- Seed mechanismus musí vytvořit allowlist účty:
+  - `test@gvid.cz` (admin)
+  - `accountant@gvid.cz` (accountant)
+  - `requester@gvid.cz` (requester)
+- Deterministický E2E login: test-only Function endpoint `mintTestToken(email)` vracející Firebase custom token.
+- `mintTestToken` a seed endpoint musí hard-failnout mimo emulator.
+- Frontend v E2E režimu (`VITE_E2E=true`) používá `signInWithCustomToken`.
+- Allowlist enforcement musí být stejný jako v produkci (non-allowlisted uživatel nemá přístup).
+
+### Povinné minimální E2E flows
+1. allowlisted login -> přístup do aplikace,
+2. non-allowlisted login -> access denied,
+3. requester vytvoří `queueRequest`,
+4. accountant schválí `queueRequest` -> vznikne `request` + `audit`.
+
+
 ### Role (enum)
 - `viewer` — pouze čtení
 - `requester` — smí vytvářet nové požadavky do fronty (queue)
