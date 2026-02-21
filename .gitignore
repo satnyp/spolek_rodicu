@@ -6,3 +6,8 @@ functions/node_modules/
 functions/lib/
 *.tsbuildinfo
 .DS_Store
+
+playwright-report/
+test-results/
+docs/screenshots/
+artifacts/

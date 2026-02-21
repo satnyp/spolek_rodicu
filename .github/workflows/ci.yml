@@ -10,17 +10,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
       - run: npm ci
+
+      - name: Guard against new binary files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BASE_REF="origin/${{ github.base_ref }}"
+            git fetch origin "${{ github.base_ref }}" --depth=1
+            RANGE="$BASE_REF...HEAD"
+          else
+            BEFORE="${{ github.event.before }}"
+            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
+              RANGE="$BEFORE...HEAD"
+            else
+              RANGE="HEAD~1...HEAD"
+            fi
+          fi
+
+          NEW_BINARIES=$(git diff --name-only --diff-filter=A "$RANGE" | grep -E '\.(png|jpg|jpeg|pdf|woff|woff2|zip)$' || true)
+          if [[ -n "$NEW_BINARIES" ]]; then
+            echo "New binary files are not allowed in PR/commit range:"
+            echo "$NEW_BINARIES"
+            exit 1
+          fi
+
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm test
+      - name: Run tests
+        run: npm test
       - run: npm run build
+
+      - name: Upload visual artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-artifacts
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+
   functions:
     runs-on: ubuntu-latest
     defaults:
