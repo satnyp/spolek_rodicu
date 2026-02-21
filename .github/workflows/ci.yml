@@ -49,6 +49,9 @@ jobs:
       - name: Run tests
         run: npm test
       - run: npm run build
+      - name: Run e2e CI flow
+        if: github.event_name == 'pull_request'
+        run: npm run test:e2e:ci
 
       - name: Upload visual artifacts on failure
         if: failure()

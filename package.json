@@ -15,7 +15,7 @@
     "pdf:fields": "node scripts/list-pdf-fields.mjs",
     "prepare": "husky || true",
     "test:e2e": "playwright test",
-    "test:e2e:ci": "firebase emulators:exec --project prispevkyrodicu \"node scripts/seedEmulator.mjs && VITE_E2E=true VITE_USE_EMULATORS=true npm run build && VITE_E2E=true VITE_USE_EMULATORS=true npm run preview -- --host 127.0.0.1 --port 4173 --strictPort & PREVIEW_PID=$! && sleep 3 && npm run test:e2e; STATUS=$?; kill $PREVIEW_PID; exit $STATUS\""
+    "test:e2e:ci": "npm --prefix functions ci && npm --prefix functions run build && npx firebase-tools emulators:exec --project prispevkyrodicu \"node scripts/seedEmulator.mjs && VITE_E2E=true VITE_USE_EMULATORS=true npm run build && VITE_E2E=true VITE_USE_EMULATORS=true npx start-server-and-test 'npm run preview -- --host 127.0.0.1 --port 4173 --strictPort' http://127.0.0.1:4173 'npm run test:e2e'\""
   },
   "dependencies": {
     "firebase": "^11.1.0",
@@ -47,6 +47,7 @@
     "typescript-eslint": "^8.18.1",
     "vite": "^6.0.5",
     "vitest": "^2.1.8",
-    "@playwright/test": "^1.58.2"
+    "@playwright/test": "^1.58.2",
+    "start-server-and-test": "^2.1.2"
   }
 }
