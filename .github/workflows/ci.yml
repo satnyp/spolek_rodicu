@@ -46,7 +46,16 @@ jobs:
             echo "$NEW_BINARIES"
             exit 1
           fi
-
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Debug Java
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          which java || true
+          java -version
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - run: npm run lint
@@ -54,6 +63,9 @@ jobs:
       - name: Run tests
         run: npm test
       - run: npm run build
+      - name: Run e2e CI flow
+        if: github.event_name == 'pull_request'
+        run: npm run test:e2e:ci
 
       - name: Upload visual artifacts on failure
         if: failure()
