@@ -1,11 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 
-vi.mock('./lib/firebase', () => ({
-  db: {},
-  storage: {},
-  functions: {}
-}));
+vi.mock('./lib/firebase', () => ({ db: {}, storage: {} }));
 
 vi.mock('./hooks/useSession', () => ({
   useSession: () => ({
@@ -24,7 +21,11 @@ import { App } from './App';
 
 describe('App', () => {
   it('renders login screen', () => {
-    render(<App />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
     expect(screen.getByText('Spolek rodičů')).toBeInTheDocument();
   });
 });
