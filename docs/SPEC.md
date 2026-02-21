@@ -157,43 +157,6 @@ Aby sidebar byl rychlý:
 
 ---
 
-## 4) UI / UX (layout + chování)
-
-### Layout (3 sloupce)
-1) Levý úzký sloupec (timeline)
-- seznam měsíců od aktuálního směrem do minulosti
-- lazy load po stránkách (např. 24 měsíců)
-- každý měsíc ukáže mini přehled (total + barevné mini indikátory)
-
-2) Střed (hlavní obsah)
-- Nadpis: `Měsíc Rok` (vybraný monthKey)
-- Seznam položek v měsíci:
-  - requests + events (INFO) v jednom streamu
-- Každý request je “card” se světle barevným pozadím dle state:
-  - NEW: bílá
-  - PAID: světle modrá
-  - HAS_INVOICES: světle fialová
-  - HANDED_TO_ACCOUNTANT: světle zelená
-- Na card:
-  - VS vlevo
-  - popis
-  - částka
-  - checkbox pro výběr do emailu
-  - ikona zámku (lock)
-  - tlačítko “Edit” (otevře pravý panel)
-  - tlačítka změny state (jen role != viewer a jen pokud unlocked)
-
-3) Pravý panel (editor)
-- Zobrazí se po kliknutí Edit/na obrázek Pdf
-- Uvede, který request je aktivní (zvýraznění v seznamu)
-- Panel má:
-  - PDF náhled šablony (template)
-  - formulář polí (editorData)
-  - tlačítko Uložit
-  - tlačítko Stáhnout PDF (vyplní šablonu a stáhne)
-  - upload příloh (invoice JPG/PDF)
-  - seznam příloh s možností stáhnout / smazat (dle role)
-
 ### Bulk akce: Poslat informační mail
 - pokud je vybrán aspoň 1 checkbox:
   - zobrazí se sticky bar s tlačítkem “Poslat informační mail”
@@ -400,7 +363,7 @@ Acceptance:
 
 ## UI: Source-of-truth:
 
-“Design je definovaný soubory v design_html/.”
+“Design je definovaný soubory v docs/design.”
 
 “Implementace v Reactu musí být 1:1 převod layoutu, žádný redesign.”
 
