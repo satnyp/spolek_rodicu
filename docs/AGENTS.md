@@ -180,6 +180,14 @@ Nic z toho nesmí být v `src/` jako plaintext.
 - PDF generovat z šablony v `assets/` a stahovat nový soubor, šablonu neměnit.
 - satny@gvid.cz je vždy admin.
 
+## Dokumentace (single source of truth)
+- Kanonické dokumenty jsou pouze v `docs/`:
+  - docs/SPEC.md
+  - docs/DESIGN.md
+  - docs/DESIGN_BASELINE.md
+  - docs/ACCEPTANCE.md
+  - docs/AGENTS.md
+
 
 ## UI baseline
 UI nesmí být “holé”. Vzhled a UX musí odpovídat /docs/DESIGN_BASELINE.md.
