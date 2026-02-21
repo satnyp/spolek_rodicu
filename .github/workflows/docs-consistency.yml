@@ -13,16 +13,16 @@ jobs:
 
       - name: Fail on design_html references in docs
         run: |
-          if rg -n "design_html" docs/*.md; then
+          if grep -n "design_html" docs/*.md; then
             echo "Found forbidden design_html reference in docs/*.md"
             exit 1
           fi
 
       - name: Require Auth & Testing Contract in SPEC
-        run: rg -n "Auth & Testing Contract" docs/SPEC.md
+        run: grep -n "Auth & Testing Contract" docs/SPEC.md
 
       - name: Require E2E section in ACCEPTANCE
-        run: rg -n "E2E" docs/ACCEPTANCE.md
+        run: grep -n "E2E" docs/ACCEPTANCE.md
 
       - name: Fail on forbidden binary file extensions
         run: |
