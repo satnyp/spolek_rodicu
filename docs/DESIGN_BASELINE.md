@@ -9,3 +9,5 @@ Zdroj pravdy pro vzhled jsou soubory v `docs/design/`:
 Agent NESMÍ vymýšlet nový layout. Úkolem je převést HTML do React komponent (Tailwind) tak, aby výsledný UI odpovídal předloze.
 Ikony: Material Symbols.
 Font: Inter.
+Pokud je rozpor mezi `DESIGN.md` a `DESIGN_BASELINE.md`, rozhoduje `DESIGN_BASELINE.md`.
+Vizuální testy: viewport 1440x900, deviceScaleFactor 1.
