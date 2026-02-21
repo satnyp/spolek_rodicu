@@ -321,8 +321,10 @@ Pokud SPEC neřeší vizuální detail, rozhoduje DESIGN_BASELINE.
 
 ## 11) Milestones (8 kroků, po každém deploy)
 
+
 ### Milestone 1 — Skeleton + Firebase deploy + Google login
 Úkoly:
+- Acceptance = projde odpovídající e2e test
 - Vite+React+TS, router, layout 3 sloupce (zatím placeholder)
 - Firebase init (hosting, firestore, auth)
 - Google sign-in + persistence
