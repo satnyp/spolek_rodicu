@@ -25,3 +25,6 @@ Build/CI
 - npm run typecheck
 - npm test
 - npm run build
+- npm run test:e2e
+- npm run test:visual
+- test:e2e běží přes emulátory (i kdyby to bylo jen textem).
