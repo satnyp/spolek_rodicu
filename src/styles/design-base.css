@@ -1,0 +1,30 @@
+@import './design-tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+html.dark body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.status-schvaleno { @apply text-emerald-600 border-emerald-200 bg-emerald-50 dark:text-emerald-300 dark:border-emerald-900 dark:bg-emerald-900/30; }
+.status-zamitnuto { @apply text-rose-600 border-rose-200 bg-rose-50 dark:text-rose-300 dark:border-rose-900 dark:bg-rose-900/30; }
+.status-vyrizeno { @apply text-indigo-600 border-indigo-200 bg-indigo-50 dark:text-indigo-300 dark:border-indigo-900 dark:bg-indigo-900/30; }

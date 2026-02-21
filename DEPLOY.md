@@ -15,11 +15,21 @@
   - `firebase functions:secrets:set APPS_SCRIPT_URL`
   - `firebase functions:secrets:set APPS_SCRIPT_SECRET`
 - [ ] Do Firestore seednout `allowlist/satny@gvid.cz` (`role: admin`, `active: true`).
+- [ ] GitHub secret `FIREBASE_SERVICE_ACCOUNT_PRISPEVKYRODICU` musí obsahovat SA JSON s rolemi minimálně:
+  - Firebase Hosting Admin
+  - Cloud Functions Admin
+  - Firestore Rules Admin
+  - Firebase Admin (pro deploy indexes/storage)
 
-## Deploy commands
+## Deploy commands (pinned local tools)
 ```bash
 npm ci
+./node_modules/.bin/playwright install --with-deps
+npm run lint
+npm run typecheck
+npm test
 npm run build
+npm run test:visual
 cd functions && npm ci && npm run build && cd ..
-firebase deploy
+GOOGLE_APPLICATION_CREDENTIALS=/path/firebase-sa.json ./node_modules/.bin/firebase deploy
 ```

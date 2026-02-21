@@ -16,11 +16,28 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - run: npm run test:visual
+      - name: Fail on tracked binary changes
+        run: |
+          CHANGED=$(git status --porcelain | awk '{print $2}')
+          if [ -n "$CHANGED" ] && echo "$CHANGED" | grep -E '\.(png|jpg|jpeg|pdf|woff|woff2|zip)$' >/dev/null; then
+            echo "Binary files changed in git status:"
+            echo "$CHANGED" | grep -E '\.(png|jpg|jpeg|pdf|woff|woff2|zip)$'
+            exit 1
+          fi
+      - name: Upload Playwright artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts-ci
+          path: |
+            playwright-report
+            test-results
   functions:
     runs-on: ubuntu-latest
     defaults:

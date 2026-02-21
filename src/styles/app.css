@@ -4,6 +4,53 @@
   background: #f8fafc;
 }
 
+
+:root[data-theme='dark'] {
+  color: #e2e8f0;
+  background: #020617;
+}
+
+:root[data-theme='dark'] body {
+  background: radial-gradient(circle at top, #0b1222, #020617 62%);
+}
+
+:root[data-theme='dark'] .timeline-panel,
+:root[data-theme='dark'] .editor-sheet,
+:root[data-theme='dark'] .card,
+:root[data-theme='dark'] .timeline-item,
+:root[data-theme='dark'] .icon-btn,
+:root[data-theme='dark'] .chip {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+:root[data-theme='dark'] .btn-secondary {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+:root[data-theme='dark'] .search-input,
+:root[data-theme='dark'] .input,
+:root[data-theme='dark'] .bulk-bar input,
+:root[data-theme='dark'] .quick-form input {
+  background: #0b1222;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+:root[data-theme='dark'] .request-main p,
+:root[data-theme='dark'] .timeline-item small,
+:root[data-theme='dark'] .muted {
+  color: #94a3b8;
+}
+
+:root[data-no-motion='true'] *,
+:root[data-no-motion='true'] *::before,
+:root[data-no-motion='true'] *::after {
+  animation: none !important;
+  transition: none !important;
+}
 * {
   box-sizing: border-box;
 }
