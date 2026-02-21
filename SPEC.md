@@ -395,6 +395,14 @@ Acceptance:
 - `apps-script/` s Code.gs + instrukce deploy Web App
 - základní seed script / instrukce: jak přidat satny@gvid.cz do allowlistu, pokud není automaticky
 
+## UI: Source-of-truth:
+
+“Design je definovaný soubory v design_html/.”
+
+“Implementace v Reactu musí být 1:1 převod layoutu, žádný redesign.”
+
+“Font: Inter, tokens v CSS, stejné spacingy.”
+
 
 
 Konec SPEC.md
