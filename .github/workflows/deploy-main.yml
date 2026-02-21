@@ -38,7 +38,7 @@ jobs:
       # Frontend / root checks
       - run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
