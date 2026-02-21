@@ -50,7 +50,7 @@ Tyto routy se používají jen pro vizuální regresní testy.
 ## Vizuální regresní test
 Cíl: pixel-match s tolerancí.
 - Playwright otevře výše uvedené routy, nastaví viewport 1440x900, udělá screenshot.
-- Screenshot porovná s referencí v `design_html/*.png` pomocí pixelmatch.
+- Screenshot porovná s referencí v `docs/design/*.png` pomocí pixelmatch.
 - ŽÁDNÉ nové binární screenshoty se necommitují (žádné snapshot .png do testů).
 - Při failu uložit diff PNG jen jako artefakt CI (necommitovat).
 
