@@ -7,3 +7,5 @@
 5) Vytvoření požadavku: inline řádek v listu (klik = edit, Enter = uložit vytvořením).
 6) Stavové barvy a prvky musí odpovídat předloze (light + dark).
 7) Admin (satny@gvid.cz) má vždy plný přístup. Non-admin může mazat jen své requests.
+8) Vizuální shoda: pixel-ish s tolerancí.
+Automatický test: screenshot diff s maxDiffPixelRatio = 0.008 (drobné odchylky povoleny).
