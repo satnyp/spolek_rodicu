@@ -4,7 +4,8 @@
     "build": "tsc",
     "serve": "firebase emulators:start --only functions",
     "deploy": "firebase deploy --only functions",
-    "lint": "eslint --ext .js,.ts src",
+    "lint": "eslint --ext .js,.ts src"
+    },
   "engines": {
     "node": "20"
   },
