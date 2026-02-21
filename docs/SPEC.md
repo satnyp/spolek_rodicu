@@ -51,6 +51,45 @@ UI design je řízen souborem DESIGN.md a šablonami v docs/design/. UI se má p
 
 ---
 
+## 1b) Auth & Testing Contract (DEV/CI) — povinné
+
+Cíl: zachovat produkční login přes Google + Seznam + allowlist, ale umožnit deterministické E2E testy bez ručního klikaní OAuth popupů.
+
+### Produkce (PROD)
+- Google login (jen @gvid.cz + allowlist)
+- Seznam login přes OAuth -> Cloud Function -> Firebase custom token (allowlist enforced serverově)
+
+### Dev a CI (DEV/CI)
+Použít Firebase Emulators:
+- Auth emulator
+- Firestore emulator
+- Storage emulator
+- Functions emulator
+
+DEV/CI musí mít deterministický login pro testy:
+- Implementovat test-only Function (jen v emulatoru), která:
+  1) vytvoří / zajistí existenci uživatele s emailem
+  2) zapíše allowlist dokument (role + active=true)
+  3) vrátí Firebase custom token pro daný email
+- Frontend v režimu E2E zavolá tuto funkci a udělá `signInWithCustomToken`.
+
+Bezpečnostní podmínky:
+- Tato test-only funkce NESMÍ být dostupná v produkci.
+- Funkce musí hard-failnout, pokud neběží v emulatoru (např. kontrola `FUNCTIONS_EMULATOR` / `process.env.FUNCTIONS_EMULATOR === "true"`).
+
+### Seed data
+Musí existovat seed krok (script nebo function), který v emulatoru založí:
+- allowlist pro `test@gvid.cz` jako `admin` (active=true)
+- allowlist pro `accountant@gvid.cz` jako `accountant`
+- allowlist pro `requester@gvid.cz` jako `requester`
+- (volitelně) základní `months` dokument pro aktuální měsíc
+
+### E2E testy (minimálně)
+- test: allowlisted user se přihlásí a vidí dashboard
+- test: non-allowlisted user je po loginu odhlášen a vidí “Nemáš přístup”
+- test: requester vytvoří queueRequest
+- test: accountant schválí queueRequest -> vznikne request
+
 ## 2) Datový model (Firestore)
 
 ### Kolekce `allowlist/{emailLower}`
