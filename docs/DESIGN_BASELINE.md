@@ -1,16 +1,11 @@
 # Design baseline (závazné)
 
-UI/UX musí odpovídat referenčním designům v /docs/design (HTML + PNG). 
-Pokud SPEC neřeší konkrétní vizuální detail, rozhoduje tento dokument.
+Zdroj pravdy pro vzhled jsou soubory v `docs/design/`:
+- prihlasovaci_obrazovka.html + .png
+- design_main.html + .png
+- dark_mode.html + .png
+- nastaveni.html + .png
 
-## Referenční obrazovky (grafika, funkčnost dodělat)
-- Login: /docs/design/prihlasovaci_obrazovka.html
-- App shell light: /docs/design/design_main.html
-- App shell dark: /docs/design/dark_mode.html
-- Modal správy oprávnění: /docs/design/nastaveni.html
-
-## Povinné UX
-- Prázdná DB: zobraz aktuální měsíc jako nadpis uprostřed + divider + inline řádek pro rychlé vytvoření požadavku.
-- Levý panel: timeline měsíců (aktuální nahoře), scroll do minulosti.
-- Pravý panel jen při editaci / PDF preview; jinak skrytý.
-- Admin-only: správa allowlistu/rolí přes UI dle designu.
+Agent NESMÍ vymýšlet nový layout. Úkolem je převést HTML do React komponent (Tailwind) tak, aby výsledný UI odpovídal předloze.
+Ikony: Material Symbols.
+Font: Inter.
