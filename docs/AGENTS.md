@@ -52,6 +52,10 @@ Nikdy:
 - nevystavovat Apps Script endpoint přímo klientovi bez serverového ověření
 - nevypínat rules “pro testování” v main branch
 
+Test-only login (povoleno):
+- V DEV/CI je povolena pouze test-only Functions cesta pro získání custom tokenu, ale výhradně v emulatoru.
+- V produkci tato cesta nesmí existovat a musí hard-failnout, pokud neběží emulator.
+
 ---
 
 ## 4) Datové konvence (Firestore)
