@@ -203,4 +203,4 @@ Agent musí ověřit výsledek proti designům (screenshoty do PR).
 
 “Zakázáno ‘inventovat’ nové UI komponenty mimo design tokens.”
 
-Zajisti, že design_html je v repu (už máš) + ideálně i PNG náhledy (už máš).
+Zajisti, že design source of truth je pouze v `docs/design/` a bez binárních PNG/JPG/PDF referencí.

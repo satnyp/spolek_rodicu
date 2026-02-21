@@ -1,23 +1,39 @@
 # Spolek rodičů (MVP)
 
-## Quick start
+## Lokální vývoj
 
 ```bash
 npm ci
-cp .env.example .env
+cd functions && npm ci && cd ..
+```
+
+Spuštění aplikace proti produkčnímu Firebase configu:
+
+```bash
 npm run dev
 ```
 
-Functions:
+## DEV/CI režim (deterministický login za OAuth)
+
+1. Spusť emulátory:
 
 ```bash
-cd functions
-npm ci
-cp .env.example .env
-npm run build
+firebase emulators:start
 ```
 
-## Checks
+2. V druhém terminálu seedni data:
+
+```bash
+node scripts/seedEmulator.mjs
+```
+
+3. Spusť frontend v E2E režimu:
+
+```bash
+VITE_E2E=true VITE_USE_EMULATORS=true npm run dev
+```
+
+## Testy a kontroly
 
 ```bash
 npm run lint
@@ -26,14 +42,14 @@ npm test
 npm run build
 ```
 
+E2E (Playwright + emulátory + seed):
+
+```bash
+npm run test:e2e:ci
+```
+
 ## Deploy
 
 ```bash
 firebase deploy
-```
-
-Pouze hosting:
-
-```bash
-firebase deploy --only hosting
 ```

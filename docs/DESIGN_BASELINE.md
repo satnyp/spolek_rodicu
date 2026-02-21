@@ -1,13 +1,6 @@
 # Design baseline (závazné)
 
-Zdroj pravdy pro vzhled jsou soubory v `docs/design/`:
-- prihlasovaci_obrazovka.html + .png
-- design_main.html + .png
-- dark_mode.html + .png
-- nastaveni.html + .png
-
-Agent NESMÍ vymýšlet nový layout. Úkolem je převést HTML do React komponent (Tailwind) tak, aby výsledný UI odpovídal předloze.
-Ikony: Material Symbols.
-Font: Inter.
-Pokud je rozpor mezi `DESIGN.md` a `DESIGN_BASELINE.md`, rozhoduje `DESIGN_BASELINE.md`.
-Vizuální testy: viewport 1440x900, deviceScaleFactor 1.
+- Zdroj pravdy: textové předlohy v `docs/design/*.html` (+ případně `docs/design/*.svg`).
+- Pokud je rozpor mezi `DESIGN.md` a `DESIGN_BASELINE.md`, rozhoduje tento dokument.
+- UI se ověřuje bez PNG: kontrola DOM struktury, `data-testid`, textů, ARIA rolí a přítomnosti hlavních layout sekcí.
+- `/__design/*` routy mají mock-only režim (bez Firestore/Storage přístupu).

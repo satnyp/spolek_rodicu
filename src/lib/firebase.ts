@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getFunctions } from 'firebase/functions';
-import { getStorage } from 'firebase/storage';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
+import { connectStorageEmulator, getStorage } from 'firebase/storage';
 
 const fallback = {
   apiKey: 'AIzaSyDddZrdWTcM1qeiXDsAI6LkLbyaL1v-dw0',
@@ -30,3 +30,11 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 export const functions = getFunctions(app);
+
+const shouldUseEmulators = env.VITE_USE_EMULATORS === 'true' || env.VITE_E2E === 'true';
+if (shouldUseEmulators) {
+  connectAuthEmulator(auth, `http://${env.VITE_EMULATOR_HOST ?? '127.0.0.1'}:${env.VITE_AUTH_EMULATOR_PORT ?? '9099'}`, { disableWarnings: true });
+  connectFirestoreEmulator(db, env.VITE_EMULATOR_HOST ?? '127.0.0.1', Number(env.VITE_FIRESTORE_EMULATOR_PORT ?? '8080'));
+  connectFunctionsEmulator(functions, env.VITE_EMULATOR_HOST ?? '127.0.0.1', Number(env.VITE_FUNCTIONS_EMULATOR_PORT ?? '5001'));
+  connectStorageEmulator(storage, env.VITE_EMULATOR_HOST ?? '127.0.0.1', Number(env.VITE_STORAGE_EMULATOR_PORT ?? '9199'));
+}

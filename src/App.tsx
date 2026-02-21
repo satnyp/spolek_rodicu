@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSession } from './hooks/useSession';
 import { db, storage } from './lib/firebase';
 import { generateRequestPdf } from './lib/pdf';
@@ -27,25 +27,24 @@ const stateTone: Record<RequestState, string> = {
   HANDED_TO_ACCOUNTANT: 'bg-green-50'
 };
 
-function DesignFrame({ image, dark = false }: { image: string; dark?: boolean }) {
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
-    return () => document.documentElement.classList.remove('dark');
-  }, [dark]);
-
+function DesignPreview({ title }: { title: string }) {
   return (
-    <div className="h-screen w-full bg-background-light dark:bg-background-dark">
-      <img src={`/desing_html/${image}`} alt={image} className="h-full w-full object-cover" />
+    <div className="min-h-screen bg-background-light p-8" data-testid="design-preview">
+      <header className="mb-6 text-2xl font-black">{title}</header>
+      <section className="grid gap-4 md:grid-cols-3" aria-label="layout columns">
+        <div className="rounded-xl border bg-white p-4" data-testid="design-column-timeline">Timeline</div>
+        <div className="rounded-xl border bg-white p-4" data-testid="design-column-list">List</div>
+        <div className="rounded-xl border bg-white p-4" data-testid="design-column-editor">Editor</div>
+      </section>
     </div>
   );
 }
 
 export function App() {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
-  if (location.pathname === '/__design/login') return <DesignFrame image="prihlasovaci_obrazovka.png" />;
-  if (location.pathname === '/__design/settings') return <DesignFrame image="nastaveni.png" />;
-  if (location.pathname === '/__design/main') return <DesignFrame image={searchParams.get('theme') === 'dark' ? 'dark_mode.png' : 'design_main.png'} dark={searchParams.get('theme') === 'dark'} />;
+  if (location.pathname === '/__design/login') return <DesignPreview title="Design login" />;
+  if (location.pathname === '/__design/settings') return <DesignPreview title="Design settings" />;
+  if (location.pathname === '/__design/main') return <DesignPreview title="Design main" />;
   return <LiveApp />;
 }
 
@@ -58,6 +57,7 @@ function LiveApp() {
   const [editorData, setEditorData] = useState<Record<string, string>>({});
   const [allowlistEmail, setAllowlistEmail] = useState('');
   const [allowlistRole, setAllowlistRole] = useState<AllowlistEntry['role']>('viewer');
+  const [e2eEmail, setE2EEmail] = useState('test@gvid.cz');
 
   useEffect(() => {
     if (!session.user) return;
@@ -79,20 +79,27 @@ function LiveApp() {
   const active = useMemo(() => requests.find((r) => r.id === editorId), [requests, editorId]);
 
   if (session.loading) return <div className="grid min-h-screen place-items-center">Načítám…</div>;
+  if (session.accessDenied) return <div className="grid min-h-screen place-items-center" data-testid="access-denied">Nemáš přístup.</div>;
   if (!session.user) {
     return (
       <div className="grid min-h-screen place-items-center bg-background-light">
         <div className="rounded-xl border border-slate-200 bg-white p-10 text-center">
           <h1 className="mb-2 text-2xl font-black">Spolek rodičů</h1>
           <button className="rounded bg-primary px-4 py-2 text-white" onClick={session.loginGoogle}>Přihlásit Google</button>
+          {import.meta.env.VITE_E2E === 'true' && (
+            <div className="mt-4 space-y-2 text-left">
+              <label className="block text-xs font-semibold" htmlFor="e2e-email">E2E email</label>
+              <input id="e2e-email" data-testid="e2e-email" className="w-full rounded border px-3 py-2" value={e2eEmail} onChange={(event) => setE2EEmail(event.target.value)} />
+              <button data-testid="e2e-login" className="w-full rounded border border-slate-300 px-4 py-2" onClick={() => session.loginE2E(e2eEmail)}>E2E login</button>
+            </div>
+          )}
         </div>
       </div>
     );
   }
-  if (session.accessDenied) return <div className="grid min-h-screen place-items-center">Nemáš přístup.</div>;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background-light font-display">
+    <div className="flex h-screen overflow-hidden bg-background-light font-display" data-testid="dashboard-root">
       <aside className="w-72 overflow-y-auto border-r border-slate-200 bg-white p-4">
         <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Měsíce</h2>
         <div className="space-y-1">

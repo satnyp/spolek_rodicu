@@ -1,7 +1,8 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCustomToken, signInWithPopup, signOut, type User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import { useEffect, useMemo, useState } from 'react';
-import { auth, db } from '../lib/firebase';
+import { auth, db, functions } from '../lib/firebase';
 import type { AllowlistEntry, Role } from '../types/domain';
 
 const ADMIN_EMAIL = 'satny@gvid.cz';
@@ -17,6 +18,7 @@ export interface SessionState {
 export function useSession(): SessionState & {
   loginGoogle: () => Promise<void>;
   loginSeznamWithToken: (token: string) => Promise<void>;
+  loginE2E: (email: string) => Promise<void>;
   logout: () => Promise<void>;
 } {
   const [user, setUser] = useState<User | null>(null);
@@ -70,6 +72,11 @@ export function useSession(): SessionState & {
     },
     loginSeznamWithToken: async (token) => {
       await signInWithCustomToken(auth, token);
+    },
+    loginE2E: async (email: string) => {
+      const mintToken = httpsCallable<{ email: string }, { token: string }>(functions, 'mintTestToken');
+      const response = await mintToken({ email });
+      await signInWithCustomToken(auth, response.data.token);
     },
     logout: () => signOut(auth)
   };
