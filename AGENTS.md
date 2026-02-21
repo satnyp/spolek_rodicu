@@ -184,3 +184,11 @@ Nic z toho nesmí být v `src/` jako plaintext.
 ## UI baseline
 UI nesmí být “holé”. Vzhled a UX musí odpovídat /docs/DESIGN_BASELINE.md.
 Agent musí ověřit výsledek proti designům (screenshoty do PR).
+
+“Než začneš měnit UI, porovnej výsledek s /__design/* routami.”
+
+“Playwright visual test musí projít v CI (musí instalovat browsers).”
+
+“Zakázáno ‘inventovat’ nové UI komponenty mimo design tokens.”
+
+Zajisti, že design_html je v repu (už máš) + ideálně i PNG náhledy (už máš).
