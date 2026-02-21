@@ -3,10 +3,10 @@
 Tento projekt má pevnou vizuální předlohu. UI se NESMÍ „vymýšlet“, ale musí vycházet z HTML šablon.
 
 ## Source of truth
-- `design_html/design_main.html` (+ `design_html/design_main.png`) = hlavní obrazovka (light)
-- `design_html/dark_mode.html` (+ `design_html/dark_mode.png`) = hlavní obrazovka (dark)
-- `design_html/prihlasovaci_obrazovka.html` (+ `design_html/prihlasovaci_obrazovka.png`) = login
-- `design_html/nastaveni.html` (+ `design_html/nastaveni.png`) = settings / správa oprávnění
+- `docs/design/design_main.html` (+ `docs/design/design_main.png`) = hlavní obrazovka (light)
+- `docs/design/dark_mode.html` (+ `docs/design/dark_mode.png`) = hlavní obrazovka (dark)
+- `docs/design/prihlasovaci_obrazovka.html` (+ `docs/design/prihlasovaci_obrazovka.png`) = login
+- `docs/design/nastaveni.html` (+ `docs/design/nastaveni.png`) = settings / správa oprávnění
 
 ## Design tokens (musí sedět)
 Přenést do Tailwind configu a globálů:
