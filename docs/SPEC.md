@@ -324,7 +324,6 @@ Pokud SPEC neřeší vizuální detail, rozhoduje DESIGN_BASELINE.
 
 ### Milestone 1 — Skeleton + Firebase deploy + Google login
 Úkoly:
-- Acceptance = projde odpovídající e2e test
 - Vite+React+TS, router, layout 3 sloupce (zatím placeholder)
 - Firebase init (hosting, firestore, auth)
 - Google sign-in + persistence
@@ -347,6 +346,7 @@ Acceptance:
 - FE popup flow + signInWithCustomToken
 Acceptance:
 - Seznam login funguje a pustí jen allowlisted email
+- Acceptance = projde odpovídající e2e test
 - audit log: LOGIN_SEZNAM
 
 ### Milestone 4 — months + timeline + načítání month requests
