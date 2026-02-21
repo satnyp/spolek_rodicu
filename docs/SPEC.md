@@ -7,7 +7,7 @@ Cíl: MVP webové aplikace hostované na Firebase (Hosting + Firestore + Auth + 
 
 ## 0) Základní rozhodnutí a omezení
 
-UI design je řízen souborem DESIGN.md a šablonami v design_html/. UI se má portovat 1:1 z HTML předloh, ne vymýšlet.
+UI design je řízen souborem DESIGN.md a šablonami v docs/design/. UI se má portovat 1:1 z HTML předloh, ne vymýšlet.
 
 ### Hosting & stack
 - Frontend: Vite + React + TypeScript
