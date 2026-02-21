@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "npm run copy:template && tsc -b && vite build",
     "copy:template": "node scripts/copy-template.mjs",
     "lint": "eslint .",
