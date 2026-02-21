@@ -13,6 +13,13 @@ UX
 - PDF panel: otevře se vpravo až po kliknutí na PDF
 - Upload příloh: komprese obrázků ~200–250 KB, fallback max 500 KB + warning
 
+Auth / E2E (funkční)
+- E2E testy běží proti Firebase Emulators (Auth/Firestore/Storage/Functions).
+- Allowlisted user se přihlásí a dostane se na main/dashboard.
+- Non-allowlisted user je po loginu odhlášen a vidí “Nemáš přístup”.
+- Requester vytvoří queueRequest a vidí ho v seznamu.
+- Accountant schválí queueRequest -> vznikne request + audit log.
+
 Build/CI
 - npm run lint
 - npm run typecheck
