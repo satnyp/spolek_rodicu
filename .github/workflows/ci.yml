@@ -46,6 +46,11 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - name: Debug Java
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          which java || true
+          java -version
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - run: npm run lint
