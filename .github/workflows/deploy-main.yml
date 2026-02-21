@@ -43,11 +43,29 @@ jobs:
       # Frontend / root checks
       - run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - run: npm run test:visual
+      - name: Fail on tracked binary changes
+        run: |
+          CHANGED=$(git status --porcelain | awk '{print $2}')
+          if [ -n "$CHANGED" ] && echo "$CHANGED" | grep -E '\.(png|jpg|jpeg|pdf|woff|woff2|zip)$' >/dev/null; then
+            echo "Binary files changed in git status:"
+            echo "$CHANGED" | grep -E '\.(png|jpg|jpeg|pdf|woff|woff2|zip)$'
+            exit 1
+          fi
+
+      - name: Upload Playwright artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts-live
+          path: |
+            playwright-report
+            test-results
 
       # Build Cloud Functions (MUSÍ vzniknout functions/lib/index.js)
       - name: Install + build Functions
@@ -75,7 +93,7 @@ jobs:
           printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRISPEVKYRODICU }}' > /tmp/firebase-sa.json
 
       - name: Deploy Functions + Rules + Indexes + Storage
-        run: npx firebase-tools@latest deploy --project prispevkyrodicu --only functions,firestore:rules,firestore:indexes,storage
+        run: ./node_modules/.bin/firebase deploy --project prispevkyrodicu --only functions,firestore:rules,firestore:indexes,storage
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/firebase-sa.json
         # firebase-tools supports SA auth via GOOGLE_APPLICATION_CREDENTIALS in CI :contentReference[oaicite:1]{index=1}

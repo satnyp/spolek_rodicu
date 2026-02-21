@@ -25,6 +25,6 @@ import { App } from './App';
 describe('App', () => {
   it('renders login screen', () => {
     render(<App />);
-    expect(screen.getByText('Spolek rodičů')).toBeInTheDocument();
+    expect(screen.getByText('Příspěvky rodičů')).toBeInTheDocument();
   });
 });
